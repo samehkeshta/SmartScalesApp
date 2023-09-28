@@ -1,5 +1,5 @@
 # Smart Scales Application
-Learn unit testing basics and best practices and understand the core concepts, terminology, and techniques. This course will teach you unit testing fundamentals to get started writing good unit tests.
+Learn unit testing basics and best practices and understand the core concepts, terminology, and techniques.
 
 # To run Smart Scales App:
 1) Open directory SmartScalesApp using command-line:

@@ -4,7 +4,8 @@ namespace SmartScalesApp.Business.Models
     {
         Kilograms,
         Pounds,
-        Stones
+        Stones,
+        Gallons
     }
 
     public enum HeightMeasure
