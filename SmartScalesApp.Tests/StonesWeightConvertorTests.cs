@@ -1,35 +1,34 @@
-using System.Reflection;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 using SmartScalesApp.Business.Algorithms.WeightConvertor;
 
 namespace SmartScalesApp.Tests;
 
-[TestFixture]
 public class StonesWeightConvertorTests
 {
-
-
-    [TestCase(210, 15)]
-    [TestCase(16.8, 1.2)]
-    [TestCase(49, 3.5)]
+    [Theory]
+    [InlineData(210, 15)]
+    [InlineData(16.8, 1.2)]
+    [InlineData(49, 3.5)]
     public void ConvertFromPounds_InputIsInPounds_ReturnInStones(decimal WeightInPounds, decimal expectedWeightInStones)
     {
         var sut = new StonesWeightConvertor();
 
         var calculatedWeightInStones = sut.ConvertFromPounds(WeightInPounds);
 
-        Assert.AreEqual(expectedWeightInStones, calculatedWeightInStones);
+        calculatedWeightInStones.Should().Be(expectedWeightInStones);
     }
 
-    [TestCase(15, 210)]
-    [TestCase(1.2, 16.8)]
-    [TestCase(3.5, 49)]
+    [Theory]
+    [InlineData(15, 210)]
+    [InlineData(1.2, 16.8)]
+    [InlineData(3.5, 49)]
     public void ConvertToPounds_InputIsInStones_ReturnInPounds(decimal WeightInStones, decimal expectedWeightInPounds)
     {
         var sut = new StonesWeightConvertor();
 
         var calculatedWeightInPounds = sut.ConvertToPounds(WeightInStones);
 
-        Assert.AreEqual(expectedWeightInPounds, calculatedWeightInPounds);
+        calculatedWeightInPounds.Should().Be(expectedWeightInPounds);
     }
 }

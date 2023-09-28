@@ -1,18 +1,18 @@
-using System;
 using System.Collections.Generic;
 using Moq;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 using SmartScalesApp.Business.Models;
 using SmartScalesApp.Business.Services.Stats;
 using SmartScalesApp.Data;
 
 namespace SmartScalesApp.Tests
 {
-    [TestFixture]
     public class StatsProgressServicesTests
     {
-        [Test]
-        public void GetProgressResults_ForAUserProfileWithWeightRecords_ReturnsValidProgressResult(){
+        [Fact]
+        public void GetProgressResults_ForAUserProfileWithWeightRecords_ReturnsValidProgressResult()
+        {
             //Arrange
             var userProfile = new UserProfile() {HeightInCMs = 180};
             var weightRecords = new List<WeightRecord>();
@@ -41,10 +41,10 @@ namespace SmartScalesApp.Tests
             var progressResults = sut.GetProgressResults(userProfile.UserID);
 
             //Assert
-            Assert.AreEqual(3, progressResults.Count);
-            Assert.AreEqual(weightRecords[0].Sequence, progressResults[0].Sequence);
-            Assert.AreEqual(weightRecords[1].Sequence, progressResults[1].Sequence);
-            Assert.AreEqual(weightRecords[2].Sequence, progressResults[2].Sequence);
+            progressResults.Count.Should().Be(3);
+            progressResults[0].Sequence.Should().Be(weightRecords[0].Sequence);
+            progressResults[1].Sequence.Should().Be(weightRecords[1].Sequence);
+            progressResults[2].Sequence.Should().Be(weightRecords[2].Sequence);
         }
     }
 }

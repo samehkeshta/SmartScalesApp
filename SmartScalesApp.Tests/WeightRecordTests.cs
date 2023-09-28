@@ -1,12 +1,12 @@
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 using SmartScalesApp.Business.Models;
 
 namespace SmartScalesApp.Tests
 {
-    [TestFixture]
     public class WeightRecordTestsTests
     {
-        [Test]
+        [Fact]
         public void ValidWeightRecord_InputIsValid_ReturnTrue(){
             
             var userID = System.Guid.NewGuid();;
@@ -14,10 +14,10 @@ namespace SmartScalesApp.Tests
 
             var validweightRecord = weightRecord.ValidWeightRecord();
 
-            Assert.IsTrue(validweightRecord);
+            validweightRecord.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ValidWeightRecord_InputHasInvalidWeight_ReturnFalse(){
             
             var userID = System.Guid.NewGuid();;
@@ -25,7 +25,7 @@ namespace SmartScalesApp.Tests
 
             var validweightRecord = sut.ValidWeightRecord();
 
-            Assert.IsFalse(validweightRecord);
+            validweightRecord.Should().BeFalse();
         }
     }    
 }

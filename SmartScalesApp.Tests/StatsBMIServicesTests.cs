@@ -1,19 +1,17 @@
+using FluentAssertions;
 using System;
 using System.Collections.Generic;
-using System.Reflection;
 using Moq;
-using NUnit.Framework;
-using SmartScalesApp.Business.Algorithms.WeightConvertor;
+using Xunit;
 using SmartScalesApp.Business.Models;
 using SmartScalesApp.Business.Services.Stats;
 using SmartScalesApp.Data;
 
 namespace SmartScalesApp.Tests
 {
-    [TestFixture]
     public class StatsBMIServicesTests
     {
-        [Test]
+        [Fact]
         public void GetBMIResult_ForAUserProfileWithWeightRecord_ReturnValidBMIResult(){
             
             //Arrange
@@ -36,12 +34,12 @@ namespace SmartScalesApp.Tests
             var bmiResult = sut.GetBMIResult(userProfile.UserID);
 
             //Assert
-            Assert.AreEqual(29.4, Math.Round(bmiResult.BMI, 2));
-            Assert.AreEqual("Between 25 and 30", bmiResult.BMIRange);
-            Assert.AreEqual(BMIClassification.Overweight, bmiResult.Classification);
+            Math.Round(bmiResult.BMI, 2).Should().Be(29.4m);
+            bmiResult.BMIRange.Should().Be("Between 25 and 30");
+            bmiResult.Classification.Should().Be(BMIClassification.Overweight);
         }
 
-        [Test]
+        [Fact]
         public void GetBMIResult_ForAUserProfileWithMultipleWeightRecords_ReturnValidBMIResult(){
             
             //Arrange
@@ -70,13 +68,12 @@ namespace SmartScalesApp.Tests
             var bmiResult = sut.GetBMIResult(userProfile.UserID);
 
             //Assert
-            Assert.AreEqual(14, Math.Round(bmiResult.BMI, 2));
-            Assert.AreEqual("Less than 18.5", bmiResult.BMIRange);
-            Assert.AreEqual(BMIClassification.Underweight, bmiResult.Classification);
+            Math.Round(bmiResult.BMI, 2).Should().Be(14);
+            bmiResult.BMIRange.Should().Be("Less than 18.5");
+            bmiResult.Classification.Should().Be(BMIClassification.Underweight);
         }
 
-
-        [Test]
+        [Fact]
         public void GetBMIResult_ForAUserProfileWithNoWeightRecord_ReturnValidBMIResult(){
             
             //Arrange
@@ -98,9 +95,9 @@ namespace SmartScalesApp.Tests
             var bmiResult = sut.GetBMIResult(userProfile.UserID);
 
             //Assert
-            Assert.AreEqual(29.4, Math.Round(bmiResult.BMI, 2));
-            Assert.AreEqual("Between 25 and 30", bmiResult.BMIRange);
-            Assert.AreEqual(BMIClassification.Overweight, bmiResult.Classification);
+            Math.Round(bmiResult.BMI, 2).Should().Be(29.4m);
+            bmiResult.BMIRange.Should().Be("Between 25 and 30");
+            bmiResult.Classification.Should().Be(BMIClassification.Overweight);
         }
     }
 }

@@ -1,12 +1,12 @@
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 using SmartScalesApp.Business.Models;
 
 namespace SmartScalesApp.Tests
 {
-    [TestFixture]
     public class UserProfileTests
     {
-        [Test]
+        [Fact]
         public void ValidProfile_InputIsValidProfile_ReturnTrue(){
             
             var sut = new UserProfile();
@@ -16,10 +16,10 @@ namespace SmartScalesApp.Tests
 
             var validProfile = sut.ValidProfile();
 
-            Assert.IsTrue(validProfile);
+            validProfile.Should().BeTrue();
         }
 
-        [Test]
+        [Fact]
         public void ValidProfile_InputIsProfileMissingUserName_ReturnFalse(){
             
             var sut = new UserProfile();
@@ -28,10 +28,10 @@ namespace SmartScalesApp.Tests
 
             var validProfile = sut.ValidProfile();
 
-            Assert.IsFalse(validProfile);
+            validProfile.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ValidProfile_InputIsProfileMissingHeight_ReturnFalse(){
             
             var sut = new UserProfile();
@@ -40,10 +40,10 @@ namespace SmartScalesApp.Tests
 
             var validProfile = sut.ValidProfile();
 
-            Assert.IsFalse(validProfile);
+            validProfile.Should().BeFalse();
         }
 
-        [Test]
+        [Fact]
         public void ValidProfile_InputIsProfileMissingWeight_ReturnFalse(){
             
             var sut = new UserProfile();
@@ -52,7 +52,7 @@ namespace SmartScalesApp.Tests
 
             var validProfile = sut.ValidProfile();
 
-            Assert.IsFalse(validProfile);
+            validProfile.Should().BeFalse();
         }
     }
 }

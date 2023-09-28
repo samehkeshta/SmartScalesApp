@@ -1,33 +1,34 @@
-using System.Reflection;
-using NUnit.Framework;
+using FluentAssertions;
+using Xunit;
 using SmartScalesApp.Business.Algorithms.HeightConvertor;
 
 namespace SmartScalesApp.Tests;
 
-[TestFixture]
 public class FeetHeightConvertorTests
 {
-    [TestCase(155.7528, 5.11)]
-    [TestCase(30.48, 1)]
-    [TestCase(182.88, 6)]
+    [Theory]
+    [InlineData(155.7528, 5.11)]
+    [InlineData(30.48, 1)]
+    [InlineData(182.88, 6)]
     public void ConvertFromCM_InputIsInCm_ReturnInFeet(decimal heightInCms, decimal expectedheightInFeet)
     {
         var sut = new FeetHeightConvertor();
 
         var calculatedheightInFeet = sut.ConvertFromCM(heightInCms);
 
-        Assert.AreEqual(expectedheightInFeet, calculatedheightInFeet);
+        calculatedheightInFeet.Should().Be(expectedheightInFeet);
     }
 
-    [TestCase(5.11,155.7528)]
-    [TestCase(1, 30.48)]
-    [TestCase(6, 182.88)]
+    [Theory]
+    [InlineData(5.11,155.7528)]
+    [InlineData(1, 30.48)]
+    [InlineData(6, 182.88)]
     public void ConvertToCM_InputIsInFeet_ReturnInCMs(decimal heightInFeet, decimal expectedheightInCms)
     {
         var sut = new FeetHeightConvertor();
 
         var calculatedheightInCMs = sut.ConvertToCM(heightInFeet);
 
-        Assert.AreEqual(expectedheightInCms, calculatedheightInCMs);
+        calculatedheightInCMs.Should().Be(expectedheightInCms);
     }
 }
